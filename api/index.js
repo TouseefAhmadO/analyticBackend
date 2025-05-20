@@ -4,14 +4,21 @@ const connectDB = require("./middleware/connectDB");
 require("dotenv").config();
 
 const app = express();
-app.use(cors());
+
+// ✅ Allow requests from localhost:3001 (your frontend)
+app.use(cors({
+  origin: "http://localhost:3001",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+}));
+
 app.use(express.json());
 
 // Connect to MongoDB
 connectDB();
 
 // Routes
-app.use("/api/auth", require("../routes/auth"));
+app.use("/auth", require("../routes/auth")); // ⚠️ Remove "/api" prefix here
 
 // Export as serverless function
 const serverless = require("serverless-http");
