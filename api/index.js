@@ -4,13 +4,25 @@ const connectDB = require("./middleware/connectDB");
 require("dotenv").config();
 
 const app = express();
-app.use(cors());
+
+// ✅ CORS Configuration
+app.use(
+  cors({
+    origin: "*", // Replace with your frontend URL in production, e.g., "https://your-frontend.vercel.app"
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  })
+);
+
+// ✅ Body parser
 app.use(express.json());
 
+// ✅ Connect to MongoDB
 connectDB();
 
-app.use("/api/auth", require("../routes/auth"));
+// ✅ Routes
+app.use("/auth", require("../routes/auth"));
 
-// Export as serverless function
+// ✅ Export as serverless function for Vercel
 const serverless = require("serverless-http");
-module.exports.handler = serverless(app);
+module.exports = serverless(app);
