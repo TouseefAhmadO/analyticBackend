@@ -21,7 +21,7 @@ const app = express();
 connectDB();
 
 // ✅ Routes
-app.use("/auth", require("../routes/auth"));
+// app.use("/auth", require("../routes/auth"));
 
 app.get('/', (req, res) => {
   res.status(200).json({
