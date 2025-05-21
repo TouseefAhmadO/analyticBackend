@@ -30,5 +30,10 @@ app.get('/', (req, res) => {
 })
 
 // ✅ Export as serverless function for Vercel
-const serverless = require("serverless-http");
-module.exports = serverless(app);
+// const serverless = require("serverless-http");
+// module.exports = serverless(app);
+const port =  process.env.PORT
+app.listen(port, () => {
+  console.log("app is running on port " + port);
+  
+})
