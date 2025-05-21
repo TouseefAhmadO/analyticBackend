@@ -9,6 +9,14 @@ require("dotenv").config();
 
 const filePath = path.join(__dirname, "../data/SAMPLE DATA.xlsx");
 
+router.get('/', (req, res) => {
+  res.status(200).json({
+    message:'App is running'
+  })
+})
+
+
+
 router.post("/signup", async (req, res) => {
   const { username, email, password } = req.body;
 

@@ -25,11 +25,7 @@ connectDB();
 // ✅ Routes
 app.use("/auth", require("../routes/auth"));
 
-app.get('/', (req, res) => {
-  res.status(200).json({
-    message:'App is running'
-  })
-})
+
 
 const port =  process.env.PORT
 app.listen(port, () => {
