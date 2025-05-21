@@ -1,39 +1,35 @@
-const express = require("express");
-const cors = require("cors");
-const connectDB = require("./middleware/connectDB");
-require("dotenv").config();
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
+app.use(express.json());
+app.use(cors());
 
-// ✅ CORS Configuration
-// app.use(
-//   cors({
-//     origin: "*", // Replace with your frontend URL in production, e.g., "https://your-frontend.vercel.app"
-//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//     credentials: true,
-//   })
-// );
+app.use('/api/auth', require('./routes/auth'));
 
-// ✅ Body parser
-// app.use(express.json());
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => {
+  console.log('MongoDB connected');
+  app.listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`));
+}).catch(err => console.log(err));
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+require('dotenv').config();
 
-// ✅ Connect to MongoDB
-connectDB();
+app.use(express.json());
+app.use(cors());
 
-// ✅ Routes
-// app.use("/auth", require("../routes/auth"));
+app.use('/api/auth', require('./routes/auth'));
 
-app.get('/', (req, res) => {
-  res.status(200).json({
-    message:'App is running'
-  })
-})
-
-// ✅ Export as serverless function for Vercel
-// const serverless = require("serverless-http");
-// module.exports = serverless(app);
-const port =  process.env.PORT
-app.listen(port, () => {
-  console.log("app is running on port " + port);
-  
-})
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => {
+  console.log('MongoDB connected');
+  app.listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`));
+}).catch(err => console.log(err));
