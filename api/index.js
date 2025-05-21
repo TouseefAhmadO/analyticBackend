@@ -15,13 +15,13 @@ const app = express();
 // );
 
 // ✅ Body parser
-// app.use(express.json());
+app.use(express.json());
 
 // ✅ Connect to MongoDB
 connectDB();
 
 // ✅ Routes
-// app.use("/auth", require("../routes/auth"));
+app.use("/auth", require("../routes/auth"));
 
 app.get('/', (req, res) => {
   res.status(200).json({
@@ -29,9 +29,6 @@ app.get('/', (req, res) => {
   })
 })
 
-// ✅ Export as serverless function for Vercel
-// const serverless = require("serverless-http");
-// module.exports = serverless(app);
 const port =  process.env.PORT
 app.listen(port, () => {
   console.log("app is running on port " + port);
