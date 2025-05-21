@@ -6,22 +6,28 @@ require("dotenv").config();
 const app = express();
 
 // ✅ CORS Configuration
-app.use(
-  cors({
-    origin: "*", // Replace with your frontend URL in production, e.g., "https://your-frontend.vercel.app"
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: "*", // Replace with your frontend URL in production, e.g., "https://your-frontend.vercel.app"
+//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//     credentials: true,
+//   })
+// );
 
 // ✅ Body parser
-app.use(express.json());
+// app.use(express.json());
 
 // ✅ Connect to MongoDB
 connectDB();
 
 // ✅ Routes
 app.use("/auth", require("../routes/auth"));
+
+app.get('/', (req, res) => {
+  res.status(200).json({
+    message:'App is running'
+  })
+})
 
 // ✅ Export as serverless function for Vercel
 const serverless = require("serverless-http");
